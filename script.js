@@ -1,6 +1,22 @@
+// Variables & Page Elements
 let firstNum = 0
 let operator = "";
 let lastNum = 0;
+let displayVal = "";
+const displaySpan = document.querySelector('.displayVal')
+const digitButtons = document.querySelectorAll('.digit');
+const clearButton = document.querySelector('.clear');
+
+// Functions
+function display(value) {
+    if(displayVal === "0"){
+        displayVal = value;
+        displaySpan.textContent = displayVal;
+    } else {
+    displayVal += value;
+    displaySpan.textContent = displayVal;
+    }
+}
 
 function add(num1, num2) {
     return num1 + num2;
@@ -33,8 +49,13 @@ function operate (firstNum, operator, lastNum) {
     }
 }
 
-console.log(operate(5,"+",5));
-console.log(operate(5,"-",5));
-console.log(operate(5,"*",5));
-console.log(operate(5,"/",5));
-console.log(operate(5,"d",5));
+// Event Listeners
+clearButton.addEventListener('click', () => {
+    displayVal = "";
+    display(0);
+});
+
+digitButtons.forEach((button) => {
+    button.addEventListener('click',() => {display(button.textContent)})
+});
+
