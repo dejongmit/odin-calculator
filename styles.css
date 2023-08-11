@@ -1,19 +1,94 @@
+:root {
+    --button_height: 5rem;
+    --button_width: 6.25rem
+}
+
+/* Webpage Body */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+/* Calculator */
 .calcBody {
-    background-color: #292929;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 0.5rem;
+    background-color: #000000;
+    width: 26.125rem;
+    height: 32.25rem;
+    border: solid #878787 0.5rem; 
+    border-radius: 0.5rem;
 }
 
+/* Display */
 .display {
-    background-color: #A9B0AE;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #D9D9D9;
+    width: 100%;
+    height: 5.8125rem;
+    border: 0;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
+.display span {
+    font-size: 5rem;
+    margin-right: 0.5rem;
+}
+
+/* Buttons */
+button {
+    border: 0;
+    border-radius: 0.5rem;
+    margin-bottom: 0.2rem;
+    font-size: 2rem;
+}
+.buttons {
+    display: flex;
+}
+
+/* Inputs */
+.inputs {
+    width: 75%;
+    margin-right: 0.5rem;
+}
+.clear_sign_mod {
+    display: flex;
+    justify-content: space-between;
+}
 .clear_sign_mod button {
     background-color: #3181FF;
+    width: var(--button_width);
+    height: var(--button_height);
 }
 
+.digits {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .digits button {
-    background-color: #2B7172;
+    background-color: #D9D9D9;
+    width: var(--button_width);
+    height: var(--button_height);
 }
 
+#zero {
+    width: calc(var(--button_width) * 2.04);
+}
+
+/* Operands */
+.operands {
+    width: 25%;
+}
 .operands button {
     background-color: #F78522;
+    width: var(--button_width);
+    height: var(--button_height);
 }
