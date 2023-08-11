@@ -1,1 +1,19 @@
-body {background-color: blue;}
+.calcBody {
+    background-color: #292929;
+}
+
+.display {
+    background-color: #A9B0AE;
+}
+
+.clear_sign_mod button {
+    background-color: #3181FF;
+}
+
+.digits button {
+    background-color: #2B7172;
+}
+
+.operands button {
+    background-color: #F78522;
+}
