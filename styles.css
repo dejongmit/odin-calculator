@@ -1,6 +1,6 @@
 :root {
     --button_height: 5rem;
-    --button_width: 6.25rem
+    --button_width: 6.35rem
 }
 
 /* Webpage Body */
@@ -57,7 +57,7 @@ button {
 /* Inputs */
 .inputs {
     width: 75%;
-    margin-right: 0.5rem;
+    margin-right: 0.25rem;
 }
 .clear_sign_mod {
     display: flex;
@@ -81,7 +81,7 @@ button {
 }
 
 #zero {
-    width: calc(var(--button_width) * 2.04);
+    width: calc(var(--button_width) * 2.025);
 }
 
 /* Operands */
