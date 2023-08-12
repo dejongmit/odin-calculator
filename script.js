@@ -7,7 +7,8 @@ let displayVal = "";
 let operatorPressed = false;
 const ELEMENT_FLASH_IN_MILLISECONDS = 25;
 const displayScreen = document.querySelector('.display');
-const displaySpan = document.querySelector('.displayVal');
+const displayInputSpan = document.querySelector('.displayVal');
+const displayEquationSpan = document.querySelector('.displayEquation')
 const clearButton = document.querySelector('.clear');
 const decimalButton = document.querySelector('.point');
 const digitButtons = document.querySelectorAll('.digit');
@@ -20,14 +21,14 @@ function display(int) { //TO DO: SET MAXIMUM DISPLAY LENGTH
     if(displayVal === "0"){ //If display is already zero, don't concatenate
         if(int === ".") { //If incoming value is a decimal, include a leading zero
             displayVal = "0."
-            displaySpan.textContent = displayVal;
+            displayInputSpan.textContent = displayVal;
         } else {
             displayVal = int.toString();
-            displaySpan.textContent = displayVal;
+            displayInputSpan.textContent = displayVal;
         }
     } else{
         displayVal += int.toString();
-        displaySpan.textContent = displayVal;
+        displayInputSpan.textContent = displayVal;
     }
 }
 
@@ -60,7 +61,7 @@ function operate (oprLeftVal, operator, oprRightVal) {
         case "/":
             if (oprRightVal === 0) { //error on divide by 0
                 setCurrentVal();
-                displaySpan.textContent = 'Error!';
+                displayInputSpan.textContent = 'Error!';
                 throw new Error("Error: Can't divide by 0!");
             } else {
                 return oprLeftVal /  oprRightVal
@@ -117,6 +118,7 @@ operandButtons.forEach((button) => { //TO DO: Hitting "=" before both operands a
                 return null;
             } else {
                 operator = button.textContent;
+                displayEquationSpan.textContent = `${currentVal} ${operator}`
                 operatorPressed = true;
             }
         } else { // Use previously selected operator to execute math and set the output as the new left val
@@ -132,6 +134,7 @@ operandButtons.forEach((button) => { //TO DO: Hitting "=" before both operands a
                 operator = button.textContent;
                 operatorPressed = true;
             }
+            displayEquationSpan.textContent = `${currentVal} ${operator}`
             leftVal = calculated;
             rightVal = 0;
         }
