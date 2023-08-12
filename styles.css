@@ -69,6 +69,10 @@ button {
     height: var(--button_height);
 }
 
+.clear_sign_mod .noFunction {
+    background-color: red;
+}
+
 .digits {
     display: flex;
     justify-content: space-between;
