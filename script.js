@@ -44,6 +44,7 @@ function clearCalculator() {
     leftVal = 0;
     operator = "";
     operatorPressed = false;
+    displayEquationSpan.textContent = ""
     displayScreen.setAttribute("class", `${displayScreen.getAttribute("class")} pressed`);
         setTimeout(() => { // wait to remove the playing class
             displayScreen.setAttribute("class", `${displayScreen.getAttribute("class").replace(" pressed", "")}`)
@@ -79,6 +80,7 @@ clearButton.addEventListener('click', () => {
     displayVal = "0" //clear the display, and reset the current val
     display("0");
     setCurrentVal();
+    operatorPressed = false;
 });
 
 decimalButton.addEventListener('click', () => { 
@@ -118,12 +120,15 @@ operandButtons.forEach((button) => { //TO DO: Hitting "=" before both operands a
                 return null;
             } else {
                 operator = button.textContent;
-                displayEquationSpan.textContent = `${currentVal} ${operator}`
+                currentVal === 0 ? 
+                    displayEquationSpan.textContent = `${leftVal} ${operator}` : 
+                    displayEquationSpan.textContent = `${currentVal} ${operator}`
                 operatorPressed = true;
             }
         } else { // Use previously selected operator to execute math and set the output as the new left val
             rightVal = currentVal;
             let calculated = operate(leftVal, operator, rightVal);
+            displayEquationSpan.textContent = `${leftVal} ${operator} ${rightVal} =`
             displayVal = "0"; //reset displayVal to stop any concat happening on the display
             display(calculated);
             setCurrentVal();
@@ -134,7 +139,6 @@ operandButtons.forEach((button) => { //TO DO: Hitting "=" before both operands a
                 operator = button.textContent;
                 operatorPressed = true;
             }
-            displayEquationSpan.textContent = `${currentVal} ${operator}`
             leftVal = calculated;
             rightVal = 0;
         }
