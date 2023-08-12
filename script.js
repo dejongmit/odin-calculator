@@ -110,7 +110,7 @@ digitButtons.forEach((button) => {
     })
 });
 
-operandButtons.forEach((button) => {
+operandButtons.forEach((button) => { //TO DO: Hitting "=" before both operands are selected should run the operate function with one set as 0
     button.addEventListener('click', () => {
         if (operator === "") { //No operation specified yet, save what was chosen for later
             if(button.textContent === "="){
@@ -146,3 +146,9 @@ allButtons.forEach((button) => { //TO DO: FIGURE OUT BETTER WAY TO ANIMATE BUTTO
         }, ELEMENT_FLASH_IN_MILLISECONDS);
     });
 })
+
+//TO DO: Add keyboard support
+
+//TO DO: Add percent support
+
+//TO DO: Add sign support
