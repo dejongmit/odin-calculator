@@ -5,7 +5,8 @@ let rightVal = 0;
 let currentVal = 0;
 let displayVal = "";
 let operatorPressed = false;
-const displaySpan = document.querySelector('.displayVal')
+const displayScreen = document.querySelector('.display');
+const displaySpan = document.querySelector('.displayVal');
 const clearButton = document.querySelector('.clear');
 const decimalButton = document.querySelector('.point');
 const digitButtons = document.querySelectorAll('.digit');
@@ -37,6 +38,16 @@ function setCurrentVal() {
     }
 }
 
+function clearCalculator() {
+    leftVal = 0;
+    operator = "";
+    operatorPressed = false;
+    displayScreen.setAttribute("class", `${displayScreen.getAttribute("class")} pressed`);
+        setTimeout(() => { // wait to remove the playing class
+            displayScreen.setAttribute("class", `${displayScreen.getAttribute("class").replace(" pressed", "")}`)
+        }, 25);
+}
+
 function operate (oprLeftVal, operator, oprRightVal) {
     switch (operator) {
         case "+":
@@ -61,9 +72,7 @@ function operate (oprLeftVal, operator, oprRightVal) {
 // Event Listeners
 clearButton.addEventListener('click', () => {
     if(displayVal === "0"){ //perform a full clear of variables
-        leftVal = 0;
-        operator = "";
-        operatorPressed = false;
+        clearCalculator();
     }
     displayVal = "0" //clear the display, and reset the current val
     display("0");
