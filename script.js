@@ -81,16 +81,23 @@ clearButton.addEventListener('click', () => {
 });
 
 decimalButton.addEventListener('click', () => { 
-    if(displayVal.includes(".")) { //check to see if a decimal has already been placed
-        return null;
+    if (operatorPressed){
+        leftVal = currentVal;
+        displayVal = "0"
+        display(".");
+        setCurrentVal();
     } else {
-        display(".")
+        if(displayVal.includes(".")) { //check to see if a decimal has already been placed
+            return null;
+        } else {
+            display(".")
+        }
     }
 });
 
 digitButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        if(!operatorPressed) { //continue to store currentVal as what gets parsed from the display
+        if(!operatorPressed || currentVal === 0) { //continue to store currentVal as what gets parsed from the display
             display(parseInt(button.textContent));
             setCurrentVal();
         } else { // operand chosen, save leftVal + operator selection and reset the display to parse value into currentVal again
