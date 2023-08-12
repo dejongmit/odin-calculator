@@ -5,6 +5,7 @@ let rightVal = 0;
 let currentVal = 0;
 let displayVal = "";
 let operatorPressed = false;
+const ELEMENT_FLASH_IN_MILLISECONDS = 25;
 const displayScreen = document.querySelector('.display');
 const displaySpan = document.querySelector('.displayVal');
 const clearButton = document.querySelector('.clear');
@@ -45,7 +46,7 @@ function clearCalculator() {
     displayScreen.setAttribute("class", `${displayScreen.getAttribute("class")} pressed`);
         setTimeout(() => { // wait to remove the playing class
             displayScreen.setAttribute("class", `${displayScreen.getAttribute("class").replace(" pressed", "")}`)
-        }, 25);
+        }, ELEMENT_FLASH_IN_MILLISECONDS);
 }
 
 function operate (oprLeftVal, operator, oprRightVal) {
@@ -142,6 +143,6 @@ allButtons.forEach((button) => { //TO DO: FIGURE OUT BETTER WAY TO ANIMATE BUTTO
         button.setAttribute("class", `${button.getAttribute("class")} pressed`);
         setTimeout(() => { // wait to remove the playing class
             button.setAttribute("class", `${button.getAttribute("class").replace(" pressed", "")}`)
-        }, 25);
+        }, ELEMENT_FLASH_IN_MILLISECONDS);
     });
 })
