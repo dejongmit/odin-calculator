@@ -97,3 +97,8 @@ button {
     width: var(--button_width);
     height: var(--button_height);
 }
+
+/* Playing Button */
+.pressed {
+    filter: brightness(50%) !important;
+}

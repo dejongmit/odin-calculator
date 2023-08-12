@@ -8,6 +8,7 @@ const clearButton = document.querySelector('.clear');
 const pointButton = document.querySelector('.point');
 const digitButtons = document.querySelectorAll('.digit');
 const operandButtons = document.querySelectorAll('.operand');
+const allButtons = document.querySelectorAll('button');
 
 
 // Functions
@@ -93,3 +94,11 @@ operandButtons.forEach((button) => {
     button.addEventListener('click', () => {operator = button.textContent;})
 });
 
+allButtons.forEach((button) => { //TO DO: FIGURE OUT BETTER WAY TO ANIMATE BUTTON PRESSED GREY OVERLAY
+    button.addEventListener('click', () => {
+        button.setAttribute("class", `${button.getAttribute("class")} pressed`);
+        setTimeout(() => { // wait to remove the playing class
+            button.setAttribute("class", `${button.getAttribute("class").replace(" pressed", "")}`)
+        }, 25);
+    });
+})
