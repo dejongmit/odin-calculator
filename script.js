@@ -2,10 +2,12 @@
 let leftVal = 0;
 let operator = "";
 let rightVal = 0;
+let currentVal = 0;
 let displayVal = "";
+let operatorPressed = false;
 const displaySpan = document.querySelector('.displayVal')
 const clearButton = document.querySelector('.clear');
-const pointButton = document.querySelector('.point');
+const decimalButton = document.querySelector('.point');
 const digitButtons = document.querySelectorAll('.digit');
 const operandButtons = document.querySelectorAll('.operand');
 const allButtons = document.querySelectorAll('button');
@@ -24,6 +26,14 @@ function display(int) {
     } else{
         displayVal += int.toString();
         displaySpan.textContent = displayVal;
+    }
+}
+
+function setCurrentVal() {
+    if(displayVal.includes(".")) { //use float if there is a decimal
+        currentVal = parseFloat(displayVal);
+    } else {
+        currentVal = parseInt(displayVal);
     }
 }
 
@@ -60,11 +70,17 @@ function operate (oprLeftVal, operator, oprRightVal) {
 
 // Event Listeners
 clearButton.addEventListener('click', () => {
-    displayVal = "0" //clear the display, then push a 0 onto it
+    if(displayVal === "0"){ //perform a full clear of variables
+        leftVal = 0;
+        operator = "";
+        operatorPressed = false;
+    }
+    displayVal = "0" //clear the display, and reset the current val
     display("0");
+    setCurrentVal();
 });
 
-pointButton.addEventListener('click', () => { 
+decimalButton.addEventListener('click', () => { 
     if(displayVal.includes(".")) { //check to see if a decimal has already been placed
         return null;
     } else {
@@ -74,24 +90,45 @@ pointButton.addEventListener('click', () => {
 
 digitButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        if(operator === "") {
+        if(!operatorPressed) { //continue to store currentVal as what gets parsed from the display
             display(parseInt(button.textContent));
-            if(displayVal.includes(".")) { //use float if there is a decimal
-                leftVal = parseFloat(displayVal);
-            } else {
-                leftVal = parseInt(displayVal);
-            }
-            console.log(leftVal);
-        } else {
-            operator = ""; 
-            //TO DO: FIGURE OUT WHAT TO DO IF THERE'S MATH SUPPOSED TO HAPPEN
-            // display(button.textContent)
+            setCurrentVal();
+        } else { // operand chosen, save leftVal + operator selection and reset the display to parse value into currentVal again
+            leftVal = currentVal;
+            displayVal = "0";
+            operatorPressed = false;
+            display(parseInt(button.textContent));
+            setCurrentVal();
         }
     })
 });
 
 operandButtons.forEach((button) => {
-    button.addEventListener('click', () => {operator = button.textContent;})
+    button.addEventListener('click', () => {
+        if (operator === "") { //No operation specified yet, save what was chosen for later
+            if(button.textContent === "="){
+                return null;
+            } else {
+                operator = button.textContent;
+                operatorPressed = true;
+            }
+        } else { // Use previously selected operator to execute math and set the output as the new left val
+            rightVal = currentVal;
+            let calculated = operate(leftVal, operator, rightVal);
+            displayVal = "0"; //reset displayVal to stop any concat happening on the display
+            display(calculated);
+            setCurrentVal();
+            if(button.textContent === "="){
+                operator = "";
+                operatorPressed = false;
+            } else {
+                operator = button.textContent;
+                operatorPressed = true;
+            }
+            leftVal = calculated;
+            rightVal = 0;
+        }
+    })
 });
 
 allButtons.forEach((button) => { //TO DO: FIGURE OUT BETTER WAY TO ANIMATE BUTTON PRESSED GREY OVERLAY
