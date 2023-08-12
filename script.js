@@ -14,7 +14,7 @@ const allButtons = document.querySelectorAll('button');
 
 
 // Functions
-function display(int) {
+function display(int) { //TO DO: SET MAXIMUM DISPLAY LENGTH
     if(displayVal === "0"){ //If display is already zero, don't concatenate
         if(int === ".") { //If incoming value is a decimal, include a leading zero
             displayVal = "0."
@@ -37,32 +37,22 @@ function setCurrentVal() {
     }
 }
 
-function add(num1, num2) {
-    return num1 + num2;
-}
-
-function subtract(num1, num2) {
-    return num1 - num2;
-}
-
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-function divide(num1, num2) {
-    return num1 / num2;
-}
-
 function operate (oprLeftVal, operator, oprRightVal) {
     switch (operator) {
         case "+":
-            return add(oprLeftVal, oprRightVal);
+            return oprLeftVal + oprRightVal
         case "-":
-            return subtract(oprLeftVal, oprRightVal);
+            return oprLeftVal - oprRightVal
         case "*":
-            return multiply(oprLeftVal, oprRightVal);
+            return oprLeftVal * oprRightVal
         case "/":
-            return divide(oprLeftVal, oprRightVal);
+            if (oprRightVal === 0) { //error on divide by 0
+                setCurrentVal();
+                displaySpan.textContent = 'Error!';
+                throw new Error("Error: Can't divide by 0!");
+            } else {
+                return oprLeftVal /  oprRightVal
+            }
         default:
             throw new Error("Error: Operator not understood!");
     }
@@ -100,7 +90,7 @@ digitButtons.forEach((button) => {
         if(!operatorPressed || currentVal === 0) { //continue to store currentVal as what gets parsed from the display
             display(parseInt(button.textContent));
             setCurrentVal();
-        } else { // operand chosen, save leftVal + operator selection and reset the display to parse value into currentVal again
+        } else { // operand chosen, save leftVal and reset the display to parse value into currentVal again
             leftVal = currentVal;
             displayVal = "0";
             operatorPressed = false;
